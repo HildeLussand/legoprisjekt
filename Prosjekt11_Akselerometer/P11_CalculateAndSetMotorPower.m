@@ -1,41 +1,44 @@
-% beregner hvordan joystickdata skal brukes for 
+% beregner hvordan data fra aksleromterer skal brukes for 
 % å få motorene til å bevege seg
 
 if online
+          
+  
+    % Beregner motorpådrag og lagrer i datavektor 
+    if Sving(k) > 128              
+    Power(A)=100-Sving(k) ; %JoySving er pådrag til motorA
+    Power(C)=Forover(k) ;   %JoyForover er pådrag til motorC
+    
+    elseif Sving(k) < 128
+    Power(A)=Forover(k) ; %TiltForover er pådrag til MotorA
+    Power(C)=100-Sving(k); %Tiltsving er pådrag til MotorC
+
+    elseif Sving(k)==128 %ingen Tilt sving, Tilt forover styrer motorene likt
+    Power(A)=Forover(k) ;    
+    Power(C)=Forover(k) ;
     
     
+          if PowerA>-5 && PowerA(k)<5        
+            PowerA(k)=0 ;                     %Fjerne JoyStick offsett  
+            PowerC(k)=0 ;                        
 
     
+         elseif PowerC(k)>-5 && PowerC(k)<5    %Fjerne Joystick offett
+            PowerC(k)=0 ;                         
+            PowerA(k)=0 ;
+            
+           end 
+    
+    
+        
+    motorA.Power = PowerA(k) ;
+    motorA.SendToNXT();
+    motorC.Power = PowerC(k);
+    motorC.SendToNXT();
+    
+    end
+    
+   
 else
     pause(0.01) % simulerer NXT-Matlab kommunikasjon i online=0
 end
-
-
-    % Beregner motorpådrag og lagrer i datavektor 
-    PowerC(k) = JoyForover(k)+ JoySving(k);  %Forover+Sving=Forover&SvingHøyre
-    PowerB(k) = JoyForover(k) - JoySving(k); %Forover-Sving=Forover&SvingVenstre
-        
-    if PowerC(k)>-5 && PowerC(k)<5        %Pådraget til MotorC=0 vist
-     PowerC(k)=0 ;                        %vist JoySticken gir en verdi til
-     PowerB(k)=0;                         % matlab mellom -5 og 5
-    motorC.Power = PowerC(k) ;
-    motorC.SendToNXT();
-    motorB.Power = PowerB(k);
-    motorB.SendToNXT();
-    
-    elseif PowerB(k)>-5 && PowerB(k)<5    %Pådraget til MotorC=0 vist
-    PowerB(k)=0;                         %vist JoySticken gir en verdi  
-    PowerC(k)=0 ;                        % til matlabmellom -5 og 5
-    motorB.Power = PowerB(k);
-    motorB.SendToNXT();
-    motorC.Power = PowerC(k) ;
-    motorC.SendToNXT();
-    
-    else
-        
-    motorC.Power = PowerC(k) ;
-    motorC.SendToNXT();
-    motorB.Power = PowerB(k);
-    motorB.SendToNXT();
-    end
-    
