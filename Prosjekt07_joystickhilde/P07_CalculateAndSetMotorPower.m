@@ -4,31 +4,33 @@
 if online
            
     % Beregner motorpådrag og lagrer i datavektor 
-    PowerA(k) = JoyForover(k)+ JoySving(k);  %Forover+Sving=Forover&SvingHøyre
-    PowerC(k) = JoyForover(k) - JoySving(k); %Forover-Sving=Forover&SvingVenstre
+    
+    if JoySving > 0              
+    Power(A)=100-JoySving(k) ; %JoySving er pådrag til motorA
+    Power(C)=JoyForover(k) ;   %JoyForover er pådrag til motorC
+    
+    elseif JoySving < 0
+    Power(A)=JoyForover(k) ; %JoyForover er pådrag til MotorA
+    Power(C)=100-JoySving(k); %Joysving er pådrag til MotorC
+
         
-    if PowerA(k)>-5 && PowerA(k)<5        %Pådraget til MotorC=0 vist
-     PowerA(k)=0 ;                        %vist JoySticken gir en verdi til
-     PowerC(k)=0;                         % matlab mellom -5 og 5
+          if PowerA>-5 && PowerA(k)<5        
+            PowerA(k)=0 ;                     %Fjerne JoyStick offsett  
+            PowerC(k)=0 ;                        
+
+    
+         elseif PowerC(k)>-5 && PowerC(k)<5    %Fjerne Joystick offett
+            PowerC(k)=0 ;                         
+            PowerA(k)=0 ;                        
+           end 
+    
+    
+        
     motorA.Power = PowerA(k) ;
     motorA.SendToNXT();
     motorC.Power = PowerC(k);
     motorC.SendToNXT();
     
-    elseif PowerC(k)>-5 && PowerC(k)<5    %Pådraget til MotorC=0 vist
-     PowerC(k)=0;                         %vist JoySticken gir en verdi 
-     PowerA(k)=0 ;                        % til matlabmellom -5 og 5
-    motorC.Power = PowerC(k);
-    motorC.SendToNXT();
-    motorA.Power = PowerA(k) ;
-    motorA.SendToNXT();
-    
-    else
-        
-    motorA.Power = PowerA(k) ;
-    motorA.SendToNXT();
-    motorC.Power = PowerC(k);
-    motorC.SendToNXT();
     end
     
    
