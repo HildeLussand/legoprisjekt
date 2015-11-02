@@ -11,7 +11,7 @@ if online
     
     elseif JoySving < 0
     Power(A)=JoyForover(k) ; %JoyForover er pådrag til MotorA
-    Power(C)=100-JoySving(k); %Joysving er pådrag til MotorC
+    Power(C)=100-(abs(JoySving(k)); %absolutt verdi Joysving er pådrag til MotorC
 
         
           if PowerA>-5 && PowerA(k)<5        
