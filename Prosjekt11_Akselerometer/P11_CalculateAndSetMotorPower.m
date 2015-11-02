@@ -5,15 +5,15 @@ if online
           
   
     % Beregner motorpådrag og lagrer i datavektor 
-    if Sving(k) > 128              
+    if Tilt_Sving(k) > 128              
     Power(A)=100-Sving(k) ; %JoySving er pådrag til motorA
     Power(C)=Forover(k) ;   %JoyForover er pådrag til motorC
     
-    elseif Sving(k) < 128
+    elseif Tilt_Sving(k) < 128
     Power(A)=Forover(k) ; %TiltForover er pådrag til MotorA
     Power(C)=100-Sving(k); %Tiltsving er pådrag til MotorC
 
-    elseif Sving(k)==128 %ingen Tilt sving, Tilt forover styrer motorene likt
+    elseif Tilt_Sving(k)==128 %ingen Tilt sving, Tilt forover styrer motorene likt
     Power(A)=Forover(k) ;    
     Power(C)=Forover(k) ;
     
