@@ -1,41 +1,34 @@
+Grenseverdi=XX;              
+Avvik(k) = Lyd(k)- nullpunkt; %nullpunkt er første Lydmåling. 
+                               
 
-Ts(k-1) = Tid(k)- Tid(k-1);
-avvik(k) = Lyd(k)- nullpunkt;
-LydIntergrert(k) = Lyd(k-1)+avvik(k-1)*Ts(k-1) ;
-LydFiltrert(k) = FIR_filter(Lyd(1:k),m); 
-round(LydFiltrert);
 
-if LydFiltrert(k) > LydFiltrert(k-1); %vist lyden øker så skal det gies
-                                      %ny kommando. Kun vist lyden øker.
+if Avvik(k) > Grenseverdi && Flanke(k)==0 %Avvik fra nullpunkt er større enn
+        Flanke(k)=1;                      % en manuell satt grenseverdi
+        Tid(k)=toc;                       %Tid ved registrert klapp
+        Ts = Tid(k)- Tid(k-1);            %Tida mellom hvert klapp
     
-    if LydFiltrert(k)<250 && LydFiltrert(k)> 160
-    rettfrem=1;
-    stopp=0;
-    bakover=0;
+        if Ts<1;  %tidskritte mindre en 1 sek, starter diskre tellervar.
+               n=1+n;
+
+        elseif Ts>1; %tidskritt mer en 1 sek, tidskritt nulstilles
+               n=1;
+        end
     
-     
-    
-    elseif   LydFiltrert(k)<330 && LydFiltrert(k)> 250
-    rettfrem=0;
-    stopp=1;
-    bakover=0;
-    
-    elseif   LydFiltrert(k)<1000 && LydFiltrert(k)> 330
-    rettfrem=0;
-    stopp=0;
-    bakover=1; 
-    end
-    
-elseif LydFiltrert(k) < LydFiltrert(k-1)
-   rettfrem_holdefunksjon= rettfrem;  %holder verdiene fra sist, nå må Lydfiltrert øke 
-   stopp_holdefunksjon= stopp;         %for at verdiene skal endre seg.
-   bakover_holdefunksjon= bakover;
-   
-else
-  rettfrem_holdefunksjon= rettfrem;  %holder verdiene fra sist, nå må Lydfiltrert øke 
-   stopp_holdefunksjon= stopp;         %for at verdiene skal endre seg.
-   bakover_holdefunksjon= bakover;
-   
-end 
-    
-    
+elseif  Avvik(k) < Grenseverdi    %resette flankeverdi når det ikke er lyd
+        Flanke(k)=0;
+           
+else 
+    Flanke(k)= 2+1;           %andre verdier over grenseverdien vil bli
+              	              %forskjellig fra 1
+end                            
+
+
+
+
+
+
+
+
+
+

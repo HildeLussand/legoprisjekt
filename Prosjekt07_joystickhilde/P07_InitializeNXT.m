@@ -9,8 +9,7 @@ if online
     COM_SetDefaultNXT(handle);
     
     % Initialiser sensorer (legg til etterhvert)
-%     OpenLight(SENSOR_3,'ACTIVE');
-    OpenSound(SENSOR_2,'DB');
+    OpenLight(SENSOR_3,'ACTIVE');
     
     % Initialiser motorer (legg til etterhvert)
     motorA = NXTMotor('A');

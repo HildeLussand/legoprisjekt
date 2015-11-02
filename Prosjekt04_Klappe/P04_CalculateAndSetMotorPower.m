@@ -3,43 +3,24 @@
 
 
 if online 
-    Drive=6;
-    Drive_backwards=-6;
-
-
-        if rettfrem==1 || rettfrem_holdefunksjon==1 
-         motorC.Power = Drive ;
-         motorC.SendToNXT();
-         motorB.Power = Drive;
-         motorB.SendToNXT();
-         
-        
-        elseif stopp==1 || stopp_holdefunksjon==1
-        
-        motorC.Stop ;
-        motorC.SendToNXT();
-        motorB.Stop;
-        motorB.SendToNXT();
-       
+    
+    if   n==1 
+         Power(B)=2;  %Robot kjører forover ved 1 klapp
+         Power(C)=2;
+    elseif n==2
+         Power(B)=0;   %Robot stopper ved 2 klapp
+         Power(C)=0;
+    elseif n==3
+        Power(B)=-2; %Robbot kjører babover ved 3 klapp.
+        Power(C)=-2;
+    end
+    
+    
+motorC.Power = Power(C) ;
+motorC.SendToNXT();
+motorB.Power = Power(B);
+motorB.SendToNXT();       
       
-        
-        elseif bakover==1 || bakover_holdefunksjon==1==1
-      
-        motorC.Power= Drive_backwards;
-        motorC.SendToNXT();
-        motorB.Power=Drive_backwards;
-        motorB.SendToNXT();
-        
-        else 
-        motorC.Stop ;        %vist det ikke er gitt noen komando så skal
-        motorC.SendToNXT();  %roboten stå iro.
-        motorB.Stop;
-        motorB.SendToNXT();
-       
-        
-        end  
-        
-        
  else  
     pause(0.01) % simulerer NXT-Matlab kommunikasjon i online=0
 end

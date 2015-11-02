@@ -7,10 +7,9 @@
 % integrasjon, filtrering og derivasjon.
 
 clear; close all       % Alltid lurt å rydde opp først
-online=1;              % Er du koplet til NXT eller ikke?
+online=0;              % Er du koplet til NXT eller ikke?
 filename = 'P01_Lys.mat'; % Angi navnet på datafilen dersom online=0. 
                           % Brukes ikke dersom online=1 
-m=20;
 
 %sampels per filtrering.
 P04_InitializeNXT 
