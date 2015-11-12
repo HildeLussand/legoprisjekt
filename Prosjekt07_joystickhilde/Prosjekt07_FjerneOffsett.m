@@ -7,7 +7,7 @@
 % integrasjon, filtrering og derivasjon.
 
 clear; close all       % Alltid lurt å rydde opp først
-online=1;              % Er du koplet til NXT eller ikke?
+online=0;              % Er du koplet til NXT eller ikke?
 filename = 'P01_Lys.mat'; % Angi navnet på datafilen dersom online=0. 
                           % Brukes ikke dersom online=1 
 
@@ -19,6 +19,6 @@ while ~JoyMainSwitch
     P07_CalculateAndSetMotorPower
     P07_PlottData
 end
-P01_CloseMotorsAndSensors
+P07_CloseMotorsAndSensors
 
 

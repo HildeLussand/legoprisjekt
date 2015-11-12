@@ -2,16 +2,17 @@
 % plotter data
 % 
 
-%plottene her er inspiret fra funksjonen joytest. 
+%plottene her er kopiert/inspiret fra funksjonen joytest. 
 
 
  subplot(2,2,1)
   PlotJoystick=plot([0],[0],'x');    
   title('JoyStick Akser')
-  set(gca,'xlim',[-32800 32800],'ylim',[-32800 32800] ); 
+  axslims = [ double(intmax('int16'))+1]; 
+  set(gca,'xlim',axslims,'ylim',axslims ); 
     
     
-subplot(2,2,2)                    
+subplot(2,2,2)                    %kopiert fra Joystick test. 
  PlotMotor=plot([0],[0],'+r');
  title('Forhold mellom Motorene')
  set(gca,'xlim',[-100 100],'ylim',[-100 100]);
@@ -28,7 +29,7 @@ subplot(2,2,2)
 
  %Handels inni plottene for å    
  set(PlotJoystick,'Xdata', joystick.axes(1),'Ydata', -joystick.axes(2));
- set(PlotMotor,'Xdata', SvingPlot, 'Ydata', Forover );
+ set(p2,'Xdata', SvingPlot, 'Ydata', Forover );
 
 %
 % tegn nå (viktig kommando)

@@ -1,34 +1,55 @@
-Grenseverdi=XX;              
-Avvik(k) = Lyd(k)- nullpunkt; %nullpunkt er første Lydmåling. 
-                               
+
+motB(k)=PowerB;
+motC(k)=PowerC;
+nullp(k) = nullpunkt;       %Updates zero variable used for plotting
+% nulll(k) = 0;               %Updates actual zero variable for plotting
+% LydFiltrert(k) = FIR_filter(Lyd(1:k),m); %Calls FIR function for k
+% Ts(k-1) = Tid(k)-Tid(k-1);               %Calculates the time from last timestamp to current
+avvik(k) = Lyd(k)-nullpunkt; %Calculates the deviation
+g_v_plotting(k)=grenseverdi  ;
+% filtrertavvik(k) = LydFiltrert(k) - nullpunkt;
+% LydIntegrert(k) = EulerForover(Lyd(k-1),avvik(k-1),Ts(k-1)); %Calls Euler function
+% LydFiltrertIIR(k) = IIRfilter(Lyd(k),LydFiltrert(k-1));               %Calls IIR function
+% LydIntegrertT(k) = Trapes(LydIntegrert(k-1),avvik(k-1:k),Ts(k-1));    %Calls Trapes function
+% avvikderivert(k-1) = Derivasjon(avvik(k-1:k),Ts(k-1));
+% LydDerivert(k-1) = Derivasjon(LydFiltrert(k-1:k), Ts(k-1));           %Calls Derivasjon function
 
 
-if Avvik(k) > Grenseverdi && Flanke(k)==0 %Avvik fra nullpunkt er større enn
-        Flanke(k)=1;                      % en manuell satt grenseverdi
-        Tid(k)=toc;                       %Tid ved registrert klapp
-        Ts = Tid(k)- Tid(k-1);            %Tida mellom hvert klapp
+
+if Lyd(k) > grenseverdi %lydverdi over manuelt satt grenseverdi.
     
-        if Ts<1;  %tidskritte mindre en 1 sek, starter diskre tellervar.
-               n=1+n;
-
-        elseif Ts>1; %tidskritt mer en 1 sek, tidskritt nulstilles
-               n=1;
-        end
-    
-elseif  Avvik(k) < Grenseverdi    %resette flankeverdi når det ikke er lyd
-        Flanke(k)=0;
+   i=1; %Diskret tellervariabel for AntallKlapp i While løkke
+   
+  
+   motorC.Power = 0 ;  % Motor stopper og vente på ny beskjed
+   motorC.SendToNXT(); 
+   motorB.Power = 0;
+   motorB.SendToNXT(); 
+   
+   AntallKlapp=0;  %Resetter AntallKlapp vektor
+   T = 0;  % Resetter Telleren til While løkke
            
+     while T < 2
+         P04_GetNewMeasurement % Hentet inn skript pga lysmåling
+         T=(T+Tid(k)-Tid(k-1)); %T plusses med tidsforskjellene
+         
+          if Lyd(k) > grenseverdi && Flanke==0
+                 AntallKlapp(1:i)=1;
+                 Flanke = 1  ;    
+                 i=i+1; %øker vektor for hver klapp
+           
+           elseif Lyd(k) < grenseverdi && Flanke ==1 
+                 Flanke =0 ; 
+                 
+          
+          end
+      end
+     
 else 
-    Flanke(k)= 2+1;           %andre verdier over grenseverdien vil bli
-              	              %forskjellig fra 1
-end                            
+    b=length(AntallKlapp); %antall klapp vektor starter med 1, vet ikke 
+    x=(b-1);               %hvorfor, derfor en hurtigløsning til probleme 
+end                        %løst
 
-
-
-
-
-
-
-
-
-
+    
+         
+    

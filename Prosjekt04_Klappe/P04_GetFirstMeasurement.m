@@ -3,11 +3,13 @@
 if online
     k=1;                        % Diskret tellevariabel   
     n=1;
-    Flanke(1:k)=0;
- %  Lys(k)=GetLight(SENSOR_3); % Få tak i første måling 
+    i=1;
     Lyd(k) = GetSound(SENSOR_2); %få tak i første måling
-    tic;                       % første tidspunkt er t=0
-  
+    Flanke(k)= 0;
+    AntallKlapp=0;
+    tic
+    PowerB=0;
+    PowerC=0;
 else
     load('klappklapp.mat')     % Laster datafil dersom online=0
     online=0;          % Dersom filename.mat inneholdt online=1
@@ -17,7 +19,7 @@ end
 
 nullpunkt = Lyd(1);    % kode som er felles for online=0=1
 
-% Initialiser figurer
-set(0,'DefaultFigureUnits','normalized')
-figure('Position',[0.01 0.01 0.9 0.9]);
+% % Initialiser figurer
+% set(0,'DefaultFigureUnits','normalized')
+% figure('Position',[0.01 0.01 0.9 0.9]);
 

@@ -2,9 +2,13 @@
 
 if online
     k=1;                         % Diskret tellevariabel    
-    Lys(k)=GetLight(SENSOR_3);   % Få tak i første måling 
-    Tid(k) = 0;                  % første tidspunkt er t=0
-    
+    Lys(k)=GetLight(SENSOR_3);
+    Tid(k)=0;% Få tak i første måling 
+    Sving(k)=0;
+    PowerB=0;
+    PowerC=0;
+    Faktor(k)=0;
+    SvingPlot=0;
     
     
 else

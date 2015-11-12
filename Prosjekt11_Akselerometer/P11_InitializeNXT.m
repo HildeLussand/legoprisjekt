@@ -23,9 +23,9 @@ if online
     joystick      = joymex2('query',0);
     JoyMainSwitch = joystick.buttons(1);
 
-    
-   % Initialiser figurer
-   set(0,'DefaultFigureUnits','normalized')
-   figure('Position',[0.01 0.01 0.9 0.9]);
+%     
+%    % Initialiser figurer
+%    set(0,'DefaultFigureUnits','normalized')
+%    figure('Position',[0.01 0.01 0.9 0.9]);
 
 end

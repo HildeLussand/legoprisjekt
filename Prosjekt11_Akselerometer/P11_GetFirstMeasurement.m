@@ -2,9 +2,10 @@
 
 if online
     k=1;                         % Diskret tellevariabel    
-    Lys(k)=GetLight(SENSOR_3);   % Få tak i første måling 
-                    
-    k=1;                         % Diskret tellevariabel    
+    PowerB(k)=0;
+    PowerC(k)=0;
+    Forover=1;
+    Sving=1;
     Tilt(:,k) = GetAbsoluteIMU_Tilt(SENSOR_1);      % Hent første måling
     Acceleration(:,k) = GetAbsoluteIMU_Acc(SENSOR_1); % Hent første måling
     Tid(k)=0; % første tidspunkt er t=0

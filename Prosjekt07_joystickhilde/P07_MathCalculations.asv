@@ -1,0 +1,11 @@
+
+Faktor(k)=100; %en 
+Forover = double(JoyForover(k));
+ForoverFaktor=(Forover./Faktor(k));
+%lagre power data i en vektor for plotting.
+PowerBPlot(1:k)=PowerB;
+PowerCPlot(1:k)=PowerC;
+%lagre sving data i en vektor for plotting.
+SvingPlot = double(JoySving(k)./327.68); 
+
+

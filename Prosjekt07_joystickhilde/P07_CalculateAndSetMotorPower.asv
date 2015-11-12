@@ -5,14 +5,17 @@ if online
            
     % Beregner motorpådrag og lagrer i datavektor 
     
-  if JoySving(k) < 0
+  if JoySving(k)<0
       
     Sving = double((JoySving(k)./327.68)+Faktor(k)); %mellomgregning
     PowerB = round(Sving*ForoverFaktor);
     PowerC = Forover;
-       
-   elseif JoySving(k) > 0
-    Sving = double(JoySving(k)./-327.68)+Faktor(k); % mellomregning
+        if PowerB && PowerC 
+    
+   
+    
+   elseif JoySving(k)>0
+    Sving = double(JoySving(k)./-327.68)+Faktor(k);
     PowerB = Forover;
     PowerC =  round(Sving * ForoverFaktor);
 
@@ -20,16 +23,18 @@ if online
         
       
                            
-  if PowerB>-5 && PowerB< 5 ;
+%         
+%      PowerB(k)>-5 && PowerB(k)<5  ;
+%     PowerC(k)>-5 && PowerC(k)<5;
+%     PowerB(k)=0 ;                     %Fjerne JoyStick offsett  
+%     PowerC(k)=0 ;
+%   
+%         PowerB(k)>-5 && PowerB(k)<5;
+%     PowerC(k)>-5 && PowerC(k)<5;
+%     PowerB(k)=0 ;                     %Fjerne JoyStick offsett  
+%     PowerC(k)=0 ;
+%     
       
-      if PowerC(k)>-5 && PowerC(k)<5;
-       PowerB=0 ;                     %Fjerne JoyStick offsett  
-       PowerC=0 ;
-      end
-  
-  end  
-   
-
     motorB.Power = PowerB;
     motorB.SendToNXT();
     motorC.Power = PowerC;
