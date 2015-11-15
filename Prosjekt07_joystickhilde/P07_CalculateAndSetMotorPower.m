@@ -22,9 +22,9 @@ if online
                            
   if PowerB>-5 && PowerB< 5 ;
       
-      if PowerC(k)>-5 && PowerC(k)<5;
-       PowerB=0 ;                     %Fjerne JoyStick offsett  
-       PowerC=0 ;
+      if PowerC>-5 && PowerC<5;
+       PowerB=0 ;                     %Fjerne JoyStick offsett vist begge 
+       PowerC=0 ;                     %motorpådragene er mellom 5 og -5
       end
   
   end  

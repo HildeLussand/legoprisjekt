@@ -9,7 +9,7 @@ if online
     PowerC=0;
     Faktor(k)=0;
     SvingPlot=0;
-    
+ 
     
 else
     load(filename)     % Laster datafil dersom online=0
